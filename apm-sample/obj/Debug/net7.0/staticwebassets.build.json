@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Mx6cwpaTVQjQJpf8+1q1KBYvANRm94t97zSoR4aQtlI=",
+  "Source": "apm-sample",
+  "BasePath": "_content/apm-sample",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
