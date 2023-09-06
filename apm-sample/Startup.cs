@@ -44,6 +44,7 @@ namespace apm_sample
                 });
 
                 endpoints.MapGet("/maruto", HelloAkito);
+                endpoints.MapGet("/hello", Hello);
                 endpoints.MapGet("/select", SelectSomething);
                 //endpoints.MapGet("/list", ListSystemMember);
                 endpoints.MapGet("/list", Dummy);
@@ -62,6 +63,25 @@ namespace apm_sample
             });
 
 
+
+        }
+
+        async Task Hello(HttpContext context)
+        {
+
+
+            try
+            {
+                //application code that is captured as a transaction
+                await context.Response.WriteAsync("Hello Akito!");
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            finally
+            {
+            }
 
         }
 
