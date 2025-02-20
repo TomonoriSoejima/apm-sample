@@ -1,30 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/surfer/Projects/apm-sample/apm-sample/apm-sample.csproj": {}
+    "/Users/surfer/elastic/source/apm-sample/apm-sample/apm-sample.csproj": {}
   },
   "projects": {
-    "/Users/surfer/Projects/apm-sample/apm-sample/apm-sample.csproj": {
+    "/Users/surfer/elastic/source/apm-sample/apm-sample/apm-sample.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/surfer/Projects/apm-sample/apm-sample/apm-sample.csproj",
+        "projectUniqueName": "/Users/surfer/elastic/source/apm-sample/apm-sample/apm-sample.csproj",
         "projectName": "apm-sample",
-        "projectPath": "/Users/surfer/Projects/apm-sample/apm-sample/apm-sample.csproj",
+        "projectPath": "/Users/surfer/elastic/source/apm-sample/apm-sample/apm-sample.csproj",
         "packagesPath": "/Users/surfer/.nuget/packages/",
-        "outputPath": "/Users/surfer/Projects/apm-sample/apm-sample/obj/",
+        "outputPath": "/Users/surfer/elastic/source/apm-sample/apm-sample/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/surfer/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net9.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net9.0": {
+            "targetAlias": "net9.0",
             "projectReferences": {}
           }
         },
@@ -32,11 +32,17 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net9.0": {
+          "targetAlias": "net9.0",
           "dependencies": {
             "Elastic.Apm.NetCoreAll": {
               "target": "Package",
@@ -44,7 +50,7 @@
             },
             "System.Data.SqlClient": {
               "target": "Package",
-              "version": "[4.8.5, )"
+              "version": "[4.8.6, )"
             }
           },
           "imports": [
@@ -66,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

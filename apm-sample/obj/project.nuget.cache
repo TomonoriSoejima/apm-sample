@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PjJaNCDNffL0DHek1Dl+fBtN9/v6NRP8nIVeZDQRDeDcZhOaBPt2piuc9DLyaAB/8hqigdjX86Bc89Q/ixyFDw==",
+  "dgSpecHash": "GP1j3W3F9lM=",
   "success": true,
-  "projectFilePath": "/Users/surfer/Projects/apm-sample/apm-sample/apm-sample.csproj",
+  "projectFilePath": "/Users/surfer/elastic/source/apm-sample/apm-sample/apm-sample.csproj",
   "expectedPackageFiles": [
     "/Users/surfer/.nuget/packages/elastic.apm/1.23.0/elastic.apm.1.23.0.nupkg.sha512",
     "/Users/surfer/.nuget/packages/elastic.apm.aspnetcore/1.23.0/elastic.apm.aspnetcore.1.23.0.nupkg.sha512",
@@ -51,7 +51,7 @@
     "/Users/surfer/.nuget/packages/system.collections.specialized/4.0.1/system.collections.specialized.4.0.1.nupkg.sha512",
     "/Users/surfer/.nuget/packages/system.configuration.configurationmanager/6.0.0/system.configuration.configurationmanager.6.0.0.nupkg.sha512",
     "/Users/surfer/.nuget/packages/system.console/4.0.0/system.console.4.0.0.nupkg.sha512",
-    "/Users/surfer/.nuget/packages/system.data.sqlclient/4.8.5/system.data.sqlclient.4.8.5.nupkg.sha512",
+    "/Users/surfer/.nuget/packages/system.data.sqlclient/4.8.6/system.data.sqlclient.4.8.6.nupkg.sha512",
     "/Users/surfer/.nuget/packages/system.diagnostics.debug/4.0.11/system.diagnostics.debug.4.0.11.nupkg.sha512",
     "/Users/surfer/.nuget/packages/system.diagnostics.diagnosticsource/5.0.0/system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",
     "/Users/surfer/.nuget/packages/system.diagnostics.performancecounter/6.0.1/system.diagnostics.performancecounter.6.0.1.nupkg.sha512",
