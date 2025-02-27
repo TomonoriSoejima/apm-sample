@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[1.23.0, )"
             },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[1.0.119, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.6, )"

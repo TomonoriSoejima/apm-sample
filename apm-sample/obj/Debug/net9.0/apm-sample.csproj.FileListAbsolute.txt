@@ -1,5 +1,6 @@
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/appsettings.Development.json
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/appsettings.json
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/apm-sample.staticwebassets.runtime.json
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/apm-sample.staticwebassets.endpoints.json
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/apm-sample
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/apm-sample.deps.json
@@ -20,11 +21,16 @@
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/Elastic.Apm.NetCoreAll.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/Elastic.Apm.SqlClient.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/Elasticsearch.Net.dll
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/EntityFramework.SqlServer.dll
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/EntityFramework.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/Microsoft.Win32.SystemEvents.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/MongoDB.Bson.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/MongoDB.Driver.Core.dll
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/System.Data.SQLite.dll
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/System.CodeDom.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/System.Configuration.ConfigurationManager.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/System.Data.SqlClient.dll
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/System.Data.SQLite.EF6.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/System.Diagnostics.PerformanceCounter.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/System.Drawing.Common.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/System.Security.Cryptography.ProtectedData.dll
@@ -34,6 +40,10 @@
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/runtimes/win-arm64/native/sni.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/runtimes/win-x64/native/sni.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/runtimes/win-x86/native/sni.dll
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/runtimes/linux-x64/native/SQLite.Interop.dll
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/runtimes/osx-x64/native/SQLite.Interop.dll
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/runtimes/win-x64/native/SQLite.Interop.dll
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/runtimes/win-x86/native/SQLite.Interop.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll
 /Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/runtimes/win/lib/net6.0/System.Diagnostics.PerformanceCounter.dll
@@ -47,8 +57,12 @@
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.AssemblyInfo.cs
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.csproj.CoreCompileInputs.cache
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.MvcApplicationPartsAssemblyInfo.cache
+/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.RazorAssemblyInfo.cache
+/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.RazorAssemblyInfo.cs
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.sourcelink.json
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/scopedcss/bundle/apm-sample.styles.css
+/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/compressed/phn6r9cd9q-5ipweew5fc.gz
+/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/compressed/icw1138thb-ieawfx3tfv.gz
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/staticwebassets.build.json
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/staticwebassets.development.json
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/staticwebassets.build.endpoints.json
@@ -64,8 +78,3 @@
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.pdb
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.genruntimeconfig.cache
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/ref/apm-sample.dll
-/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/apm-sample.staticwebassets.runtime.json
-/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.RazorAssemblyInfo.cache
-/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.RazorAssemblyInfo.cs
-/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/compressed/phn6r9cd9q-5ipweew5fc.gz
-/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/compressed/icw1138thb-ieawfx3tfv.gz

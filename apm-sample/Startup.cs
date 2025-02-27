@@ -196,7 +196,7 @@ namespace apm_sample
                 {
                     connection.Open();
 
-                    string sqlQuery = "INSERT INTO usersj (FirstName, LastName, Age, Email) VALUES (@FirstName, @LastName, @Age, @Email)";
+                    string sqlQuery = "INSERT INTO users (FirstName, LastName, Age, Email) VALUES (@FirstName, @LastName, @Age, @Email)";
                     context.RequestServices.GetRequiredService<ILogger<Startup>>().LogInformation("Executing query: {SqlQuery}", sqlQuery);
 
                     using (SqlCommand command = new SqlCommand(sqlQuery, connection))

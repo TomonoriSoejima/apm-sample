@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("apm-sample")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9026222a1edd790b03e1ff411513e2a8168fc8ac")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86930beb3a6783c825662954a14c4417ec6fc351")]
 [assembly: System.Reflection.AssemblyProductAttribute("apm-sample")]
 [assembly: System.Reflection.AssemblyTitleAttribute("apm-sample")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

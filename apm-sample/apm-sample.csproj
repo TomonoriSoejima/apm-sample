@@ -11,5 +11,6 @@
   <ItemGroup>
     <PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.23.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
   </ItemGroup>
 </Project>
