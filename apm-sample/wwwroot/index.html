@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - apm_sample</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom colors inspired by the reference image */
+        :root {
+            --primary-bg: #f4ede6; /* Soft beige background */
+            --card-bg: #ffffff; /* White card-like sections */
+            --accent-color: #fbbc04; /* Warm yellow accent */
+            --text-dark: #2d2d2d; /* Dark text */
+            --text-light: #707070; /* Light text */
+        }
+    </style>
+</head>
+<body class="bg-[var(--primary-bg)] text-[var(--text-dark)] font-sans">
+
+    <!-- Navbar -->
+    <header class="bg-[var(--card-bg)] shadow-md rounded-b-3xl">
+        <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center space-x-8">
+            <a href="/" class="text-2xl font-bold text-[var(--text-dark)]">apm_sample</a>
+            <ul class="flex space-x-6">
+                <li><a href="/" class="hover:text-[var(--accent-color)] transition">Home</a></li>
+                <li><a href="/select" class="hover:text-[var(--accent-color)] transition">Select</a></li>
+                <li><a href="/insert" class="hover:text-[var(--accent-color)] transition">Insert</a></li>
+                <li><a href="/call_to_another_service" class="hover:text-[var(--accent-color)] transition">call_to_another_service</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto p-6">
+        <div class="bg-[var(--card-bg)] shadow-md rounded-3xl p-8">
+            <h1 class="text-3xl font-semibold">Welcome to APM Sample</h1>
+            <p class="mt-4 text-lg text-[var(--text-light)]">
+                This is a sample application that interacts with <b>Elastic APM</b> (Application Performance Monitoring). 
+                It helps developers monitor the performance of their applications, 
+                track transactions, capture errors, and analyze distributed traces.
+            </p>
+            <p class="mt-4 text-lg text-[var(--text-light)]">
+                The navigation links above allow you to explore different routes and test how APM logs 
+                requests and performance metrics in real-time.
+            </p>
+            <p class="mt-4 text-lg text-[var(--text-light)]">
+                You can use <b>Elastic APM</b> to:
+                <ul class="list-disc list-inside mt-2">
+                    <li>Monitor request performance</li>
+                    <li>Detect and debug errors</li>
+                    <li>Analyze database queries and external API calls</li>
+                </ul>
+            </p>
+            <p class="mt-6 text-lg">
+                Try clicking different links and check the <b>APM dashboard</b> in Kibana to see real-time monitoring!
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 text-[var(--text-light)]">
+        <p>&copy; 2023 - apm_sample</p>
+    </footer>
+
+</body>
+</html>

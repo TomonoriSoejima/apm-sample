@@ -64,3 +64,8 @@
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.pdb
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.genruntimeconfig.cache
 /Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/ref/apm-sample.dll
+/Users/surfer/elastic/source/apm-sample/apm-sample/bin/Debug/net9.0/apm-sample.staticwebassets.runtime.json
+/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.RazorAssemblyInfo.cache
+/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/apm-sample.RazorAssemblyInfo.cs
+/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/compressed/phn6r9cd9q-5ipweew5fc.gz
+/Users/surfer/elastic/source/apm-sample/apm-sample/obj/Debug/net9.0/compressed/icw1138thb-ieawfx3tfv.gz

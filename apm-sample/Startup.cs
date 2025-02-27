@@ -6,14 +6,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Transactions;
+using apm_sample;
+using Microsoft.AspNetCore.Http;
 
 namespace apm_sample
 {
     public class Startup
     {
+        private readonly string _connectionString = "Server=localhost;Database=MySampleDatabase;User Id=sa;Password=tomonori_987##123;"; // Define global variable
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -24,9 +29,17 @@ namespace apm_sample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddRazorPages(); // Add this line to use Razor Pages
+            services.AddHttpClient(); // Add this line to register HttpClient
+            services.AddLogging(config =>
+            {
+                config.AddConsole();
+                config.AddDebug();
+            }); // Add this line to configure logging
+            // Remove any references to DatabaseSettings
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -36,44 +49,66 @@ namespace apm_sample
             app.UseRouting();
             app.UseAllElasticApm(Configuration); // Add this line to use Elastic APM
 
+            app.UseStaticFiles(); // Add this line to serve static files
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages(); // Add this line to map Razor Pages
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    context.Response.Redirect("/index.html");
                 });
 
-                endpoints.MapGet("/maruto", HelloAkito);
+                endpoints.MapGet("/akito", HelloAkito);
                 endpoints.MapGet("/hello", Hello);
                 endpoints.MapGet("/select", SelectSomething);
-                //endpoints.MapGet("/list", ListSystemMember);
-                endpoints.MapGet("/list", Dummy);
-
-
                 endpoints.MapGet("/insert", async context =>
                 {
                     string firstName = context.Request.Query["firstName"];
                     string lastName = context.Request.Query["lastName"];
-                    int age = int.Parse(context.Request.Query["age"]);
+                    string ageString = context.Request.Query["age"];
                     string email = context.Request.Query["email"];
 
-                    await InsertSomething(context, firstName, lastName, age, email);
+                    if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(ageString) || string.IsNullOrEmpty(email))
+                    {
+                        // Insert dummy data if any parameter is missing
+                        firstName = "John";
+                        lastName = "Doe";
+                        ageString = "30";
+                        email = "john.doe@example.com";
+                    }
+
+                    if (!int.TryParse(ageString, out int age))
+                    {
+                        await context.Response.WriteAsync("Invalid age parameter.");
+                        return;
+                    }
+
+                    bool insertSuccess = await InsertSomething(context, firstName, lastName, age, email);
+                    if (insertSuccess)
+                    {
+                        await context.Response.WriteAsync("Insert successful.");
+                    }
+                    else
+                    {
+                        await context.Response.WriteAsync("Insert failed.");
+                    }
                 });
 
+                endpoints.MapGet("/call_to_another_service", async context =>
+                {
+                    var httpClientFactory = context.RequestServices.GetRequiredService<IHttpClientFactory>();
+                    await CallAnotherService(context, httpClientFactory);
+                });
             });
-
-
-
         }
 
         async Task Hello(HttpContext context)
         {
-
-
             try
             {
                 //application code that is captured as a transaction
-                await context.Response.WriteAsync("Hello Akito!");
+                await context.Response.WriteAsync("Hello Hello!");
             }
             catch (Exception e)
             {
@@ -82,19 +117,17 @@ namespace apm_sample
             finally
             {
             }
-
         }
 
         async Task HelloAkito(HttpContext context)
         {
-
             var transaction = Elastic.Apm.Agent
                        .Tracer.StartTransaction("MyTransaction", ApiConstants.TypeRequest);
 
             try
             {
                 //application code that is captured as a transaction
-                await context.Response.WriteAsync("Hello Akito!");
+                await context.Response.WriteAsync("Hello Akito Soejima!");
                 var just_wait = true;
             }
             catch (Exception e)
@@ -106,31 +139,29 @@ namespace apm_sample
             {
                 transaction.End();
             }
-
         }
-
 
         private async Task SelectSomething(HttpContext context)
         {
-
-
             ITransaction transaction = Elastic.Apm.Agent.Tracer.CurrentTransaction;
-            var asyncResult = await transaction.CaptureSpan("Select FROM MySampleTable", ApiConstants.TypeDb, async (s) =>
+            var asyncResult = await transaction.CaptureSpan("Select FROM users", ApiConstants.TypeDb, async (s) =>
             {
+                context.RequestServices.GetRequiredService<ILogger<Startup>>().LogInformation("Using connection string: {ConnectionString}", _connectionString);
 
-
-                string connectionString = "Server=localhost;Database=;User Id=sa;Password=Nzn6M_3M-X1s;";
-
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 
-                    string sqlQuery = "SELECT * FROM MySampleTable";
+                    string sqlQuery = "SELECT * FROM users";
+                    context.RequestServices.GetRequiredService<ILogger<Startup>>().LogInformation("Executing query: {SqlQuery}", sqlQuery);
 
                     using (SqlCommand command = new SqlCommand(sqlQuery, connection))
                     {
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
+                            var result = new System.Text.StringBuilder();
+                            result.Append("<html><body><table border='1'><tr><th>ID</th><th>FirstName</th><th>LastName</th><th>Age</th><th>Email</th></tr>");
+
                             while (reader.Read())
                             {
                                 int id = reader.GetInt32(0);
@@ -139,35 +170,34 @@ namespace apm_sample
                                 int age = reader.GetInt32(3);
                                 string email = reader.GetString(4);
 
-                                Console.WriteLine($"ID: {id}, FirstName: {firstName}, LastName: {lastName}, Age: {age}, Email: {email}");
+                                result.Append($"<tr><td>{id}</td><td>{firstName}</td><td>{lastName}</td><td>{age}</td><td>{email}</td></tr>");
                             }
+
+                            result.Append("</table></body></html>");
+                            await context.Response.WriteAsync(result.ToString());
                         }
                     }
-
                 }
 
                 await Task.Delay(500); //sample async code
 
-               
-
                 return 42;
             });
-
-
         }
 
-        private async Task InsertSomething(HttpContext context, string firstName, string lastName, int age, string email)
+        private async Task<bool> InsertSomething(HttpContext context, string firstName, string lastName, int age, string email)
         {
             ITransaction transaction = Elastic.Apm.Agent.Tracer.CurrentTransaction;
-            var asyncResult = await transaction.CaptureSpan("INSERT INTO MySampleTable", ApiConstants.TypeDb, async (s) =>
+            var asyncResult = await transaction.CaptureSpan("INSERT INTO users", ApiConstants.TypeDb, async (s) =>
             {
-                string connectionString = "Server=localhost;Database=;User Id=sa;Password=Nzn6M_3M-X1s;";
+                context.RequestServices.GetRequiredService<ILogger<Startup>>().LogInformation("Using connection string: {ConnectionString}", _connectionString);
 
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 
-                    string sqlQuery = "INSERT INTO MySampleTable (FirstName, LastName, Age, Email) VALUES (@FirstName, @LastName, @Age, @Email)";
+                    string sqlQuery = "INSERT INTO usersj (FirstName, LastName, Age, Email) VALUES (@FirstName, @LastName, @Age, @Email)";
+                    context.RequestServices.GetRequiredService<ILogger<Startup>>().LogInformation("Executing query: {SqlQuery}", sqlQuery);
 
                     using (SqlCommand command = new SqlCommand(sqlQuery, connection))
                     {
@@ -177,96 +207,49 @@ namespace apm_sample
                         command.Parameters.AddWithValue("@Email", email);
 
                         int rowsAffected = await command.ExecuteNonQueryAsync();
-                        if (rowsAffected > 0)
-                        {
-                            Console.WriteLine("Insert successful.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Insert failed.");
-
-                        }
+                        return rowsAffected > 0;
                     }
                 }
-
-                await Task.Delay(100);  // Sample async code
-
-                return 42;
             });
+
+            return asyncResult;
         }
 
-
-        public static List<SystemMemberDto> ListSystemMember()
+        private async Task CallAnotherService(HttpContext context, IHttpClientFactory httpClientFactory)
         {
-            List<SystemMemberDto> result = new List<SystemMemberDto>();
+            var transaction = Elastic.Apm.Agent.Tracer.StartTransaction("MyTransaction", ApiConstants.TypeRequest);
 
-            string connectionString = "Server=localhost;Database=;User Id=sa;Password=Nzn6M_3M-X1s;";
-
-            string query = "SELECT RoleName, EmpNo, UserId, UpdateTime FROM SystemMembers";
-
-            //var transaction = Agent.Tracer.StartTransaction("TASK", ApiConstants.TypeRequest);
-
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(query, connection);
-                try
-                {
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        SystemMemberDto member = new SystemMemberDto
-                        {
-                            RoleName = reader["RoleName"] as string,
-                            EmpNo = reader["EmpNo"] as string,
-                            UserId = reader["UserId"] as string,
-
-
-                        };
-
-                        if (DateTime.TryParse(reader["UpdateTime"].ToString(), out DateTime updateTime))
-                        {
-                            member.UpdateTime = updateTime;
-                        }
-                        result.Add(member);
-                    }
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    // Handle exception
-                    Console.WriteLine(ex.Message);
-                    //transaction.CaptureException(ex);
-                }
-
-                //transaction.End();
-            }
-            return result;
-        }
-
-
-        public static void Dummy()
-        {
-
-            var transaction = Agent.Tracer.StartTransaction("TASK - dummy", ApiConstants.TypeRequest);
             try
             {
-                ListSystemMember();
+                var client = httpClientFactory.CreateClient();
+                var response = await client.GetAsync("http://localhost:7000/from_another_service");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    await context.Response.WriteAsync($"Error: {response.StatusCode}");
+                    return;
+                }
+
+                var content = await response.Content.ReadAsStringAsync();
+                await context.Response.WriteAsync(content);
             }
-            catch (Exception ex)
+            catch (HttpRequestException e)
             {
-                transaction.CaptureException(ex);
+                transaction.CaptureException(e);
+                await context.Response.WriteAsync($"Request error: {e.Message}");
+            }
+            catch (Exception e)
+            {
+                transaction.CaptureException(e);
+                throw;
             }
             finally
             {
                 transaction.End();
             }
-
-
         }
     }
 }
 
-
-
+     
+    

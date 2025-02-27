@@ -1,0 +1,28 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=tomonori987##ok
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+
+  webapp:
+    image: mcr.microsoft.com/dotnet/aspnet:9.0
+    container_name: webapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=MySampleDatabase;User Id=sa;Password=tomonori987##ok;
+    depends_on:
+      - sqlserver
+    ports:
+      - "5000:80"
+
+volumes:
+  sqlserverdata:
