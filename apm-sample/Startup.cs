@@ -100,6 +100,8 @@ namespace apm_sample
                     var httpClientFactory = context.RequestServices.GetRequiredService<IHttpClientFactory>();
                     await CallAnotherService(context, httpClientFactory);
                 });
+
+                endpoints.MapGet("/select_from_sqlite", SelectFromSqlite); // Add this line to map the new endpoint
             });
         }
 
@@ -248,8 +250,53 @@ namespace apm_sample
                 transaction.End();
             }
         }
+
+        private async Task SelectFromSqlite(HttpContext context)
+        {
+            ITransaction transaction = Elastic.Apm.Agent.Tracer.CurrentTransaction;
+            var asyncResult = await transaction.CaptureSpan("Select FROM table_sample", ApiConstants.TypeDb, async (s) =>
+            {
+                string sqliteConnectionString = "Data Source=sample.db;ite;Version=3;";
+                context.RequestServices.GetRequiredService<ILogger<Startup>>().LogInformation("Using SQLite connection string: {ConnectionString}", sqliteConnectionString);
+
+                using (var connection = new System.Data.SQLite.SQLiteConnection(sqliteConnectionString))
+                {
+                    connection.Open();
+
+                    string sqlQuery = "SELECT * FROM table_sample";
+                    context.RequestServices.GetRequiredService<ILogger<Startup>>().LogInformation("Executing query: {SqlQuery}", sqlQuery);
+
+                    using (var command = new System.Data.SQLite.SQLiteCommand(sqlQuery, connection))
+                    {
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            var result = new System.Text.StringBuilder();
+                            result.Append("<html><body><table border='1'><tr><th>ID</th><th>FirstName</th><th>LastName</th><th>Age</th><th>Email</th></tr>");
+
+                            while (reader.Read())
+                            {
+                                int id = reader.GetInt32(0);
+                                string firstName = reader.GetString(1);
+                                string lastName = reader.GetString(2);
+                                int age = reader.GetInt32(3);
+                                string email = reader.GetString(4);
+
+                                result.Append($"<tr><td>{id}</td><td>{firstName}</td><td>{lastName}</td><td>{age}</td><td>{email}</td></tr>");
+                            }
+
+                            result.Append("</table></body></html>");
+                            await context.Response.WriteAsync(result.ToString());
+                        }
+                    }
+                }
+
+                await Task.Delay(500); //sample async code
+
+                return 42;
+            });
+        }
     }
 }
 
-     
-    
+
+
